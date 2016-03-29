@@ -30,7 +30,7 @@
 
 
     <rabbit:listener-container connection-factory="connectionFactory">
-        <rabbit:listener ref="capitalizeListener" method="listen" queue-names="capitalize.in"/>
+        <rabbit:listener ref="capitalizeListener" method="onMessage" queue-names="capitalize.in"/>
     </rabbit:listener-container>
 
     <bean id="capitalizeListener" class="com.github.alexeybuzdin.capitalize.CapitalizeListener"/>

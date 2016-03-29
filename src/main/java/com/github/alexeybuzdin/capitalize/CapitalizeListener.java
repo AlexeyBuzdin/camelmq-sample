@@ -1,17 +1,22 @@
 package com.github.alexeybuzdin.capitalize;
 
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.*;
 import org.springframework.beans.factory.annotation.*;
 
-public class CapitalizeListener {
+import java.nio.charset.*;
+
+public class CapitalizeListener implements MessageListener {
 
     @Autowired
     RabbitTemplate capitalizeTemplate;
 
-    public void listen(String foo) {
+    @Override
+    public void onMessage(Message message) {
         try {
-            System.out.println("Received: " + foo);
-            capitalizeTemplate.convertAndSend(foo.toUpperCase());
+            String messageStr = new String(message.getBody(), StandardCharsets.UTF_8);
+            System.out.println("Received: " + messageStr);
+            capitalizeTemplate.convertAndSend(messageStr.toUpperCase());
         } catch (Exception e) {
             e.printStackTrace();
         }
