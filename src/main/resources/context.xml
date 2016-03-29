@@ -25,6 +25,9 @@
         </rabbit:bindings>
     </rabbit:topic-exchange>
 
+    <rabbit:template id="capitalizeTemplate" connection-factory="connectionFactory"
+                     exchange="capitalize" routing-key="capitalize.out"/>
+
 
     <rabbit:listener-container connection-factory="connectionFactory">
         <rabbit:listener ref="capitalizeListener" method="listen" queue-names="capitalize.in"/>
